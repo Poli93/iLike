@@ -1,4 +1,4 @@
-# iLike
-personal like counter for players in WoW Classic
-WIP
+# iLike (WIP)
+personal like counter for players in WoW Classic, made for Catdog-CrusaderStrike
+
 
