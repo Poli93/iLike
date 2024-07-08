@@ -1,6 +1,6 @@
 --[[
 Idan Dayan (Idanqt-Discord)
-personal like counter for players in WoW Classic, made for Catdog of Cinder-CrusaderStrike 
+personal like counter for players in WoW Classic
 WIP
 
 ]]--
