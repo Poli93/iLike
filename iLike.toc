@@ -2,6 +2,7 @@
 ## Title: iLike
 ## Notes: personal like counter for players in WoW Classic
 ## Author: Idan
+## Version: 0.1
 ## SavedVariables: iLikeDB
 
 iLike.lua
