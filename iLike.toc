@@ -1,0 +1,7 @@
+## Interface: 10200
+## Title: iLike
+## Notes: 
+## Author: Idan
+## SavedVariables: iLikeDB
+
+iLike.lua
