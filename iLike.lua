@@ -35,7 +35,7 @@ end
 local function UnLikeFunction()
     print(iLike_TXT .. "Removed from like counter")
     local guid = UnitGUID(targetUnit)
-    if iLikeDB[guid] then
+    if iLikeDB and iLikeDB[guid] then
         iLikeDB[guid] = nil 
         print("Debug: GUID: " .. guid .. " unliked.") -- debug
     else
@@ -47,7 +47,7 @@ end
 local function UpdateTooltip()
     if UnitExists("mouseover") then
         local guid = UnitGUID("mouseover")
-        if iLikeDB[guid] then
+        if iLikeDB and iLikeDB[guid] then
             local name = iLikeDB[guid] or "Unknown"
             --local likedLine = string.format("Liked by you! (Name: %s)", name)
 			local likedLine = string.format("Liked by you!")
