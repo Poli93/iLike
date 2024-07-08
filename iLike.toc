@@ -1,6 +1,6 @@
-## Interface: 10200
+## Interface: 11502
 ## Title: iLike
-## Notes: 
+## Notes: personal like counter for players in WoW Classic
 ## Author: Idan
 ## SavedVariables: iLikeDB
 
