@@ -5,6 +5,9 @@ WIP
 TODO:
 only like players? 
 like from other frames
+I liked you whisper 
+add note to a like
+
 
 ]]--
 
@@ -12,6 +15,7 @@ local addon, iLike = ...
 local iLike_TXT = "|cff69CCF0iLike|r: "
 --local iLikeDB = {}
 local targetUnit
+local debugMode = false
 --local iLikeDB = iLikeDB or {}
 
 --debug 
@@ -23,13 +27,29 @@ SlashCmdList["PRINTLIKES"] = function(msg)
     end
 end 
 
+--debug 
+SLASH_DEBUGLIKES1 = "/debuglikes"
+SlashCmdList["DEBUGLIKES"] = function(msg)
+	debugMode = true
+	print("Debugging enabled")
+end 
+
+local function debugMsg(msg)
+	if debugMode == true then
+		print(iLike_TXT .. msg)
+	else
+		return
+	end
+end
+
 local function LikeFunction()
     print(iLike_TXT .. "Added to like counter")
     local guid = UnitGUID(targetUnit)
     local name = UnitName(targetUnit)
     --iLikeDB[guid] = {name = name, status = true}
 	iLikeDB[guid] = name -- only guid and name? no need for status if we only add those we like? 
-    print("GUID: " .. guid .. ", Name: " .. (name or "Unknown")) -- debug
+	debugMsg("GUID: " .. guid .. ", Name: " .. (name or "Unknown"))
+	
 end
 
 local function UnLikeFunction()
@@ -37,9 +57,9 @@ local function UnLikeFunction()
     local guid = UnitGUID(targetUnit)
     if iLikeDB and iLikeDB[guid] then
         iLikeDB[guid] = nil 
-        print("Debug: GUID: " .. guid .. " unliked.") -- debug
+        debugMsg("Debug: GUID: " .. guid .. " unliked.") -- debug
     else
-        print("debug err")
+		debugMsg("debug err")
     end
 end
 
@@ -68,6 +88,8 @@ end
 local function AddMenuOptionLike(self, level)
     if not (UIDROPDOWNMENU_MENU_LEVEL or level) then return end
     if UIDROPDOWNMENU_MENU_LEVEL == 1 then
+		debugMsg(UIDROPDOWNMENU_MENU_LEVEL)
+		debugMsg(which)
         local info = UIDropDownMenu_CreateInfo()
         info.text = "Like"
         info.func = LikeFunction
@@ -116,6 +138,11 @@ GameTooltip:HookScript("OnUpdate", UpdateTooltip)
 hooksecurefunc("UnitPopup_ShowMenu", function(dropdownMenu, which, unit, name, userData)
     if unit == "target" then
         targetUnit = unit
+		debugMsg(which)
+		debugMsg(dropdownmenu)
+		debugMsg(unit)
+		debugMsg(name)
+		debugMsg(userData)
 		local guid = UnitGUID(targetUnit)
         local liked = iLikeDB[guid] ~= nil -- Check if the unit is already liked
 		
