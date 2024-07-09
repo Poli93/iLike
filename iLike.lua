@@ -7,6 +7,7 @@ only like players?
 like from other frames
 I liked you whisper 
 add note to a like
+added liked dates? 
 
 
 ]]--
@@ -35,17 +36,17 @@ SlashCmdList["DEBUGLIKES"] = function(msg)
 end 
 
 local function debugMsg(msg)
-	if debugMode == true then
+	if debugMode == true and msg ~= nil then
 		print(iLike_TXT .. msg)
 	else
 		return
 	end
 end
 
-local function LikeFunction()
-    print(iLike_TXT .. "Added to like counter")
+local function LikeFunction()    
     local guid = UnitGUID(targetUnit)
     local name = UnitName(targetUnit)
+	print(iLike_TXT .. "Added " .. name .. " to the like counter")
     --iLikeDB[guid] = {name = name, status = true}
 	iLikeDB[guid] = name -- only guid and name? no need for status if we only add those we like? 
 	debugMsg("GUID: " .. guid .. ", Name: " .. (name or "Unknown"))
@@ -53,8 +54,9 @@ local function LikeFunction()
 end
 
 local function UnLikeFunction()
-    print(iLike_TXT .. "Removed from like counter")
     local guid = UnitGUID(targetUnit)
+	local name = UnitName(targetUnit)
+	print(iLike_TXT .. "Removed " .. name .. " from the like counter")
     if iLikeDB and iLikeDB[guid] then
         iLikeDB[guid] = nil 
         debugMsg("Debug: GUID: " .. guid .. " unliked.") -- debug
@@ -137,12 +139,12 @@ GameTooltip:HookScript("OnUpdate", UpdateTooltip)
 
 hooksecurefunc("UnitPopup_ShowMenu", function(dropdownMenu, which, unit, name, userData)
     if unit == "target" then
-        targetUnit = unit
 		debugMsg(which)
 		debugMsg(dropdownmenu)
 		debugMsg(unit)
 		debugMsg(name)
 		debugMsg(userData)
+        targetUnit = unit
 		local guid = UnitGUID(targetUnit)
         local liked = iLikeDB[guid] ~= nil -- Check if the unit is already liked
 		
